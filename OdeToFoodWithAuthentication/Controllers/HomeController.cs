@@ -12,7 +12,10 @@ namespace OdeToFoodWithAuthentication.Controllers
         OdeToFoodDb _db = new OdeToFoodDb();
         public ActionResult Index()
         {
-            List<Restaurant> model = _db.Restaurants.ToList();
+            IOrderedQueryable<Restaurant> model =
+                from r in _db.Restaurants
+                orderby r.Name ascending
+                select r;
 
             return View(model);
         }
