@@ -14,7 +14,7 @@ namespace OdeToFoodWithAuthentication.Controllers
         {
             IOrderedQueryable<Restaurant> model =
                 from r in _db.Restaurants
-                orderby r.Name ascending
+                orderby r.Reviews.Count() descending
                 select r;
 
             return View(model);
