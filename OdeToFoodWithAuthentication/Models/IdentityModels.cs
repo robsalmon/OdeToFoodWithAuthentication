@@ -31,5 +31,7 @@ namespace OdeToFoodWithAuthentication.Models
         }
 
         public System.Data.Entity.DbSet<OdeToFoodWithAuthentication.Models.RestaurantReview> RestaurantReviews { get; set; }
+
+        public System.Data.Entity.DbSet<OdeToFoodWithAuthentication.Models.Restaurant> Restaurants { get; set; }
     }
 }

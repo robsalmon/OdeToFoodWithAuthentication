@@ -38,6 +38,28 @@ namespace OdeToFoodWithAuthentication.Migrations
                 
                 });
 
+            for (int i = 0; i < 1000; i++)
+            {
+                context.Restaurants.AddOrUpdate(r => r.Name,
+
+                    new Restaurant
+                    {
+                        Name = i.ToString(),
+                        City = "Nowhere",
+                        Country = "USA",
+                        Reviews  = new List<RestaurantReview> {
+
+                            new RestaurantReview
+                            {
+                                Rating = 8,
+                                Body = "Good food!",
+                                ReviewerName = "Dave Salmon"
+                            }
+                        }                   }
+
+                    );
+            }
+
         }
     }
 }

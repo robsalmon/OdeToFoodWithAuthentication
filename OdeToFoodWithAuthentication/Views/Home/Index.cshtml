@@ -1,4 +1,4 @@
-﻿@model IEnumerable<OdeToFoodWithAuthentication.Models.Restaurant>
+﻿@model IEnumerable<OdeToFoodWithAuthentication.Models.RestaurantListViewModel>
 @using OdeToFoodWithAuthentication.Models
 @{
     ViewBag.Title = "Home Page";
@@ -9,11 +9,20 @@
     <p class="lead">Reviews of all the restaurants I have been too.</p>
 </div>
 
-@foreach (Restaurant item in Model)
+<form asp-controller="Home" method="get" asp-action="Index">
+
+    <label for="SearchString">Title</label>
+    <input type="text" name="SearchString" />
+ 
+    <input type="submit" value="Filter" />
+</form>
+
+@foreach (RestaurantListViewModel item in Model)
 {
     <div>
         <h4>@item.Name</h4>
         <div>@item.City, @item.Country</div>
+        <div>Reviews @item.CountOfReviews</div>
         <hr />
     </div>
 }
