@@ -1,25 +1,60 @@
-﻿$(function () {
+﻿$(document).ready(function () {
+    $(function () {
 
-    let ajaxFormSubmit = function () {
+        let ajaxFormSubmit = function () {
 
-        let $form = $(this);
+            let $form = $(this);
 
-        let options = {
-            url: $form.attr("action"),
-            type: $form.attr("method"),
-            data: $form.serialize()
+            let options = {
+                url: $form.attr("action"),
+                type: $form.attr("method"),
+                data: $form.serialize()
+            };
+
+            $.ajax(options).done(function (data) {
+
+                let $target = $($form.attr("data-otf-target"));
+                let $newHtml = $(data);
+                $target.replaceWith(newHtml);
+                $newHtml.effect("highlight");
+
+
+            });
+
+            return false;
         };
 
-        $.ajax(options).done(function (data) {
+        let submitAutocompleteForm = function (event, ui) {
 
-            let $target = $($form.attr("data-otf-target"));
-            $target.replace(data);
+            let $input = $(this);
 
-        });
+            $input.val(ui.item.label);
 
-        return false;
-    };
+            let $form = $input.parents("form:first");
 
-    $("fprm[data-otf-ajax='true']").submit(ajaxFormSubmit);
-    
+            $form.submit();
+
+
+
+
+        };
+
+        let createAutocomplete = function () {
+            let $input = $(this);
+
+            let options = {
+
+                source: $input.attr("data-otf-autocomplete"),
+                select: submitAutocompleteForm
+            };
+
+            $input.autocomplete(options);
+
+        };
+
+        $("fprm[data-otf-ajax='true']").submit(ajaxFormSubmit);
+        $("input[data-otf-autocomplete]").each(createAutocomplete);
+
+    });
+
 });

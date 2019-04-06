@@ -14,7 +14,7 @@
       data-otf-ajax="true" data-otf-target="#restaurantList">
 
     <label for="Titles">Title</label>
-    <input type="text" id="Title" name="SearchString" />
+    <input type="text" id="Title" name="SearchString" data-otf-autocomplete="@Url.Action("AutoComplete")" />
 
     <input type="submit" value="Search by Name" />
 </form>

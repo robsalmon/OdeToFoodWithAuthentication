@@ -12,6 +12,21 @@ namespace OdeToFoodWithAuthentication.Controllers
     {
         private ApplicationDbContext _db = new ApplicationDbContext();
 
+        public ActionResult AutoComplete(string term)
+        {
+            var model =
+                _db.Restaurants
+                .Where(r => r.Name.StartsWith(term))
+                .Take(10)
+                .Select(r => new
+
+                {
+                    label = r.Name
+                });
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpGet]
         public ActionResult Index(string searchString)
         {

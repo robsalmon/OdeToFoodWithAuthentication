@@ -12,7 +12,8 @@ namespace OdeToFoodWithAuthentication
             bundles.Add(new ScriptBundle("~/bundles/otf").Include(
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/jquery.validate*",
-                "~/Scripts/otf.js"
+                "~/Scripts/otf.js",
+                "~/Scripts/jquery-ui.js"
                 ));
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
@@ -31,7 +32,8 @@ namespace OdeToFoodWithAuthentication
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
-                      "~/Content/bootstrap-theme.css"
+                      "~/Content/bootstrap-theme.css",
+                      "~/Content/jquery-ui.css"
                       ));
           
         }

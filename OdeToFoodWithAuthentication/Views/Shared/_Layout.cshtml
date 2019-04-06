@@ -36,7 +36,7 @@
         @RenderBody()
         <hr />
         <div>
-          @*  @Html.Action("BestReview", "Reviews") *@
+            @*  @Html.Action("BestReview", "Reviews") *@
         </div>
         <footer>
             <p>&copy; @DateTime.Now.Year - Robert Salmon</p>
@@ -44,7 +44,7 @@
     </div>
 
     @Scripts.Render("~/bundles/otf")
-    @Scripts.Render("~/bundles/bootstrap")
+    @* @Scripts.Render("~/bundles/bootstrap") *@
     @RenderSection("scripts", required: false)
 </body>
 </html>
