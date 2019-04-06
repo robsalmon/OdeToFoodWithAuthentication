@@ -17,9 +17,9 @@ namespace OdeToFoodWithAuthentication.Tests.Controllers
         {
             // Arrange
             HomeController controller = new HomeController();
-
+            string searchString = "0";
             // Act
-            ViewResult result = controller.Index() as ViewResult;
+            ViewResult result = controller.Index(searchString) as ViewResult;
 
             // Assert
             Assert.IsNotNull(result);

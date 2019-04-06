@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<OdeToFoodWithAuthentication.Models.RestaurantListViewModel>
-@using OdeToFoodWithAuthentication.Models
+
+
 @{
     ViewBag.Title = "Home Page";
 }
@@ -9,20 +10,26 @@
     <p class="lead">Reviews of all the restaurants I have been too.</p>
 </div>
 
-<form asp-controller="Home" method="get" asp-action="Index">
+<form  method="get" action="@Url.Action("Index")" 
+      data-otf-ajax="true" data-otf-target="#restaurantList">
 
-    <label for="SearchString">Title</label>
-    <input type="text" name="SearchString" />
- 
-    <input type="submit" value="Filter" />
+    <label for="Titles">Title</label>
+    <input type="text" id="Title" name="SearchString" />
+
+    <input type="submit" value="Search by Name" />
 </form>
-
-@foreach (RestaurantListViewModel item in Model)
-{
-    <div>
-        <h4>@item.Name</h4>
-        <div>@item.City, @item.Country</div>
-        <div>Reviews @item.CountOfReviews</div>
-        <hr />
-    </div>
-}
+@*
+    @using (Ajax.BeginForm(
+        new AjaxOptions
+        {
+            HttpMethod = "get",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "restaurantList"
+        }))
+    {
+        <label for="searchString">Name:</label>
+        <input type="search" name="searchString" />
+        <input type="submit" value="Search by Name" />
+    }
+*@
+@Html.Partial("_Restaurants", Model)

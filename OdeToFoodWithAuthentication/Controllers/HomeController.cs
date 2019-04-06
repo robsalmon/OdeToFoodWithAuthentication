@@ -42,6 +42,11 @@ namespace OdeToFoodWithAuthentication.Controllers
 
                model = model.Where(s => s.Name.Contains(searchString));
             }
+
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_Restaurants", model);
+            }
           
 
             return View(model);
