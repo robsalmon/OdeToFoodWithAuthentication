@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace OdeToFoodWithAuthentication.Controllers
 {
@@ -28,11 +29,12 @@ namespace OdeToFoodWithAuthentication.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string searchString, int page = 1)
         {
-            IQueryable<RestaurantListViewModel> model = _db.Restaurants.OrderByDescending(
-                r => r.Reviews.Average(review => review.Rating))
-                    .Select(r => new RestaurantListViewModel
+           IPagedList<RestaurantListViewModel> model = _db.Restaurants
+                .OrderByDescending(r => r.Reviews.Average(review => review.Rating))
+                .Where(r => searchString == null || r.Name.StartsWith(searchString))
+                .Select(r => new RestaurantListViewModel
                     {
                         Id = r.Id,
                         Name = r.Name,
@@ -40,7 +42,7 @@ namespace OdeToFoodWithAuthentication.Controllers
                         Country = r.Country,
                         CountOfReviews = r.Reviews.Count()
 
-                    }); 
+                    }).ToPagedList(page, 10); 
 
             /*   IQueryable<RestaurantListViewModel> model =
                    from r in _db.Restaurants
@@ -53,10 +55,7 @@ namespace OdeToFoodWithAuthentication.Controllers
                        CountOfReviews = r.Reviews.Count()
                    }; */
 
-            if (!String.IsNullOrEmpty(searchString)) {
-
-               model = model.Where(s => s.Name.Contains(searchString));
-            }
+            
 
             if (Request.IsAjaxRequest())
             {
